@@ -1,7 +1,13 @@
 <script lang="ts">
+  let scrolled = $state<boolean>(false);
+  $effect(() => {
+    window.addEventListener('scroll', () => {
+      window.scrollY > 0 ? scrolled = true : scrolled = false 
+    });
+  });
 </script>
 
-<nav>
+<nav class:scrolled={scrolled}>
   <a href="/">About</a>
   <a href="/projects">Projects</a>
   <a href="/skills">Skills</a>
@@ -32,17 +38,24 @@
     display: flex;
     position: sticky;
     top: 0;
+    margin: 0 auto 0 auto;
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 1rem;
     height: 4svh;
+    width: 100%;
     background-color: #fff;
+    transition: all 0.3s ease-in-out;
   }
 
-  nav.is-stuck {
-    background-color: #a72626;
+  nav.scrolled {
+    top: 1rem;
+    width: 500px;
     color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    transition: all 0.3s ease-in-out;
   }
 
   header  {
